@@ -35,25 +35,27 @@ int main()
 	char *fraza = (char *)malloc(n * sizeof(char));
 	for (int i = 0; i < n; i++)
 		fraza[i] = inpt[i];
+	int *buffer = (int *)malloc(n * sizeof(int));
 	cout << endl << "XOR: ";
-	for (int i = 0; i <n; i++)
-		putchar(XOR((int)fraza[i],gamm));
+	for (int i = 0; i < n; i++) {
+		buffer[i] = XOR(fraza[i], gamm);
+		putchar(buffer[i]);
+	}
 	cout << endl << "Cyclic shift: ";
-	for (int i = 0; i < n; i++)
-		putchar(Cyclic_shift(XOR((int)fraza[i], gamm)));
-	int key1 = key+1;
-	while (key1 != key)
-	{
-		cout << "\nInput key: " << endl;
-		cin >> key1;
+	for (int i = 0; i < n; i++) {
+		buffer[i] = Cyclic_shift(buffer[i]);
+		putchar(buffer[i]);
 	}
 	cout << endl << "Reverse cyclic shift: ";
-	for (int i = 0; i < n; i++)
-		putchar(Reverse_Cyclic_Shift(Cyclic_shift(XOR((int)fraza[i], gamm))));
+	for (int i = 0; i < n; i++) {
+		buffer[i] = Reverse_Cyclic_Shift(buffer[i]);
+		putchar(buffer[i]);
+	}
 	cout << endl << "Reverse XOR: ";
-	for (int i = 0; i < n; i++) 
-		putchar(Reverse_XOR(Reverse_Cyclic_Shift(Cyclic_shift(XOR((int)fraza[i], gamm))), gamm));
-	free(fraza);
+	for (int i = 0; i < n; i++){
+		buffer[i] = Reverse_XOR(buffer[i],gamm);
+		putchar(buffer[i]);
+	}
 	cout << "\n";
 	system("pause"); 
 	return 0;
